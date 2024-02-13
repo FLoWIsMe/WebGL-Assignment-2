@@ -2,94 +2,53 @@
 // parameters:
 // 1) list of two points.Format: x1, y1, x2, y2
 // 2) drawing context
-function drawLine(points, context){
-
+function drawLine(points, context) {
+    // Daelyn: Get the current image data from the canvas to manipulate pixels directly.
     var imgData = context.getImageData(0, 0, 400, 400);
 
+    // Daelyn: Extract the start (x1, y1) and end (x2, y2) points from the input array.
     var x1 = points[0];
     var y1 = points[1];
     var x2 = points[2];
     var y2 = points[3];
 
-    y1 = imgData.height - y1
-    var y_fordrawing = imgData.height - y1;
-    var x_fordrawing = x1;
-    imgData.data[4*(y_fordrawing*imgData.width+ x_fordrawing)] = 255; //red
-    imgData.data[4*(y_fordrawing*imgData.width+ x_fordrawing) + 1] = 0; //green
-    imgData.data[4*(y_fordrawing*imgData.width+ x_fordrawing) + 2] = 0; //blue
-    imgData.data[4*(y_fordrawing*imgData.width+ x_fordrawing) + 3] = 255; //opacity
-
+    // Daelyn: Adjust Y coordinates because the canvas' (0,0) is at the top left corner, not the bottom left.
+    y1 = imgData.height - y1;
     y2 = imgData.height - y2;
-    y_fordrawing = imgData.height - y2;
-    x_fordrawing = x2;
-    imgData.data[4*(y_fordrawing*imgData.width+ x_fordrawing)] = 255; //red
-    imgData.data[4*(y_fordrawing*imgData.width+ x_fordrawing) + 1] = 0; //green
-    imgData.data[4*(y_fordrawing*imgData.width+ x_fordrawing) + 2] = 0; //blue
-    imgData.data[4*(y_fordrawing*imgData.width+ x_fordrawing) + 3] = 255; //opacity
-    if(x2>x1 && y2>y1 && (Math.abs((y2-y1)) <= Math.abs((x2-x1)))){
-        y2 = imgData.height - points[3];
-        y1 = imgData.height - points[1];
 
-        var x = points[0];
-        var y = points[1];
-        y = imgData.height - y;
+    // Daelyn: Calculate the differences in x and y to determine the slope and direction of the line.
+    var dx = Math.abs(x2 - x1);
+    var dy = Math.abs(y2 - y1);
+    // Daelyn: Determine the step direction for x and y (positive or negative).
+    var sx = (x1 < x2) ? 1 : -1;
+    var sy = (y1 < y2) ? 1 : -1;
+    // Daelyn: Initialize the error term to decide when to move in y-direction as well.
+    var err = dx - dy;
 
+    // Daelyn: Loop to draw pixels from the start point to the end point.
+    while (true) {
+        // Daelyn: Calculate the position in the imgData array to set the pixel color.
+        let pos = 4 * ((imgData.height - y1) * imgData.width + x1);
+        imgData.data[pos] = 255; // Red
+        imgData.data[pos + 1] = 0; // Green
+        imgData.data[pos + 2] = 0; // Blue
+        imgData.data[pos + 3] = 255; // Opacity
 
-        var dy = Math.abs(y2-y1);
-        var dx = Math.abs(x2-x1);
+        // Daelyn: Break the loop if the current pixel is the end point.
+        if (x1 === x2 && y1 === y2) break;
 
-        var F = 2 * dy * x + 2 * (x2 * y1 - x1 * y2) - 2 * dx * y - dx;
-
-        while(x <= x2){
-            y_fordrawing = imgData.height - y;
-            x_fordrawing = x;
-            imgData.data[4*(y_fordrawing*imgData.width+ x_fordrawing)] = 255; //red
-            imgData.data[4*(y_fordrawing*imgData.width+ x_fordrawing) + 1] = 0; //green
-            imgData.data[4*(y_fordrawing*imgData.width+ x_fordrawing) + 2] = 0; //blue
-            imgData.data[4*(y_fordrawing*imgData.width+ x_fordrawing) + 3] = 255; //opacity
-
-            x = x + 1;
-            console.log(F)
-            if(F <= 0){
-                F = F + (2 * dy);
-            } else {
-                F = F + (2 * dy) - (2 * dx);
-                y = y + 1;
-            }
-
+        // Daelyn: Double the error term to check if it's time to increment x or y or both.
+        var e2 = 2 * err;
+        if (e2 > -dy) {
+            err -= dy;
+            x1 += sx; // Daelyn: Move in x-direction.
+        }
+        if (e2 < dx) {
+            err += dx;
+            y1 += sy; // Daelyn: Move in y-direction.
         }
     }
-        // else if(x2<x1 && y2<y1 && (Math.abs((y1-y2))<= 0*(Math.abs(x1-x2)))){
-        //     y2 = imgData.height - points[3];
-        //     y1 = imgData.height - points[1];
-    
-        //     var x = points[0];
-        //     var y = points[1];
-        //     y = imgData.height - y;
-    
-    
-        //     var dy = Math.abs(y2-y1);
-        //     var dx = Math.abs(x2-x1);
-    
-        //     var F = 2 * dy * x + 2 * (x2 * y1 - x1 * y2) - 2 * dx * y - dx;
-    
-        //     while(x <= x2){
-        //         y_fordrawing = imgData.height - y;
-        //         x_fordrawing = x;
-        //         imgData.data[4*(y_fordrawing*imgData.width+ x_fordrawing)] = 0; //red
-        //         imgData.data[4*(y_fordrawing*imgData.width+ x_fordrawing) + 1] = 0; //green
-        //         imgData.data[4*(y_fordrawing*imgData.width+ x_fordrawing) + 2] = 0; //blue
-        //         imgData.data[4*(y_fordrawing*imgData.width+ x_fordrawing) + 3] = 255; //opacity
-    
-        //         x = x + 1;
-        //         console.log(F)
-        //         if(F <= 0){
-        //             F = F + (2 * dy);
-        //         } else {
-        //             F = F + (2 * dy) - (2 * dx);
-        //             y = y + 1;
-        //         }
-    
-        //     }
-    context.putImageData(imgData,0,0);
+
+    // Daelyn: Update the canvas with the modified image data to display the drawn line.
+    context.putImageData(imgData, 0, 0);
 }
