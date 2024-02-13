@@ -1,0 +1,67 @@
+/* place the content belonging to the bresenham 
+implementation in the center*/
+#bresenham {
+  margin: auto;
+}
+
+/*guarantee the body to use the full available space */
+body{
+  margin: 0 auto;
+  width: 900px;
+  height: 900px;
+  text-align: center;
+  font-family: Helvetica, sans-serif;
+}
+
+/* center the canvas, set its background color 
+to black and provide it with a frame */
+canvas {
+  margin: auto;
+  padding: 0;
+  background-color: white;
+  border: .2em solid grey;
+}
+
+/* make the controls fit */
+fieldset{
+  display: block;
+  width: 50%;
+  margin: auto;
+  padding: .2em;
+}
+
+input{
+  width: 3.5em;
+}
+
+label{
+  margin-left: .5em;
+}
+
+#onoff, #single, #many, #clear, #triggerMany{
+  flex: 1 1 100%;
+  border-color: slategray;
+  background-color: gray;
+  color: darkred;
+  margin-right: 1.0em;
+}
+
+#clear, #triggerMany{
+  width: 100%;
+  background-color: lightgray;
+  color: darkslategray;
+}
+
+#single, #many, #triggerMany{
+  width: 30%;
+  margin: auto;
+}
+
+#single{
+  background-color: lightskyblue;
+  color: darkgreen;
+}
+
+#triggerMany{
+  float: right;
+}

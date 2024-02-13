@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+
+
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bresenham-Algorithm</title>
+	
+    <!-- Stylesheet. Used for positioning the canvas and defining its background color. -->
+    <link rel="stylesheet" type="text/css" media="screen, projection" href="ex1.css">
+	
+  </head>
+
+	<body>
+		<div id="bresenham">
+			<!-- Canvas element to draw content in. Only height and width are set directly. The 
+			drawing operations are performed in the script. -->
+			<h2>Canvas</h2>
+			
+			
+			<canvas id="drawingCanvas" height="400" width="400">Your browser does not support HTML5 Canvas.</canvas>
+			
+			
+			<fieldset id="general">
+				<legend>Settings</legend>
+				<input type="button" id="clear" value="Clear Canvas"></input>
+			</fieldset>
+			<fieldset id="magnifierControls">
+				<legend>Magnifying Glass</legend>
+				<input type="button" id="onoff" value="Off"></input>
+				<label for="size">Diameter: <input id="size" type="number" min="30" max="200" step="1" value="100">px</label>
+				<label for="zoom">Zoom Level: <input id="zoom" type="number" min="1" max="10" step="1" value="2">&times;</label>
+			</fieldset>
+		</div>
+
+    <!-- Javascript. -->
+    <!-- Provides Magnifier. -->
+    <script src="utils.js"></script>
+
+    <!-- Script containing the drawing algorithms. Your code goes here. -->
+    <script src="bresenham.js"></script>	
+
+	</body>
+</html>
