@@ -47,11 +47,11 @@ function draw(points, context) {
 
 function setPixel(x, y, context) {
     // Daelyn: Create a single pixel image data with black color and full opacity
-    var imgData = context.createImageData(1, 1); // Create a single pixel image
-    imgData.data[0] = 0; // red
-    imgData.data[1] = 0; // green
-    imgData.data[2] = 0; // blue
-    imgData.data[3] = 255; // alpha
+    var imgData = context.createImageData(1, 1); // Daelyn: create a single pixel image
+    imgData.data[0] = 0; // Daelyn: Red
+    imgData.data[1] = 0; // Daelyn: Green
+    imgData.data[2] = 255; // Daelyn: Blue (I wanted to draw the circles in blue)
+    imgData.data[3] = 255; // Daelyn: Alpha
     context.putImageData(imgData, x, y); // Daelyn: Place the pixel at specified coordinates
 }
 

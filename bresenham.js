@@ -32,10 +32,10 @@ function drawLine(points, context) {
     while (true) {
         // Daelyn: Calculate the position in the imgData array to set the pixel color.
         let pos = 4 * ((imgData.height - y1) * imgData.width + x1);
-        imgData.data[pos] = 255; // Red
-        imgData.data[pos + 1] = 0; // Green
-        imgData.data[pos + 2] = 0; // Blue
-        imgData.data[pos + 3] = 255; // Opacity
+        imgData.data[pos] = 255; // Daelyn: Red (I wanted to draw the lines in red)
+        imgData.data[pos + 1] = 0; // Daelyn: Green
+        imgData.data[pos + 2] = 0; // Daelyn: Blue
+        imgData.data[pos + 3] = 255; // Daelyn: Opacity
 
         // Daelyn: Break the loop if the current pixel is the end point.
         if (x1 === x2 && y1 === y2) break;

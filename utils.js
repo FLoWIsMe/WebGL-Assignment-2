@@ -264,7 +264,7 @@ function addPoint(event){
         }
         break;
       case 'single':
-        // clearCanvas(); // deliberately no break here
+        clearCanvas(); // deliberately no break here
         ptBuf.push(posX);
         ptBuf.push(posY);
         if(ptBuf.length >= 6){
