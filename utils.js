@@ -21,6 +21,7 @@ var Magnifier = function(){
   
   // draw the magnifier centered at coordinates x and y onto the canvas' content
   this.draw = function(x, y){
+    console.log("The function has been entered")
     // Use buffers for drawing. Be aware that the shortcut of using int32 usually 
     // would be sensitive to endianness but as we just copy stuff, everything is fine
     
@@ -259,10 +260,11 @@ function addPoint(event){
           var ctx =  document.getElementById('drawingCanvas').getContext("2d");
           drawLine(ptBuf, ctx);
           ptBuf = new Array(0);
+          console.log("The function has been entered")
         }
         break;
       case 'single':
-        clearCanvas(); // deliberately no break here
+        // clearCanvas(); // deliberately no break here
         ptBuf.push(posX);
         ptBuf.push(posY);
         if(ptBuf.length >= 6){
@@ -306,7 +308,7 @@ function __initUtils__(){
   // add the event listeners to their elements
   document.getElementById('drawingCanvas').addEventListener("mousemove", magnifyHere);
   document.getElementById('drawingCanvas').addEventListener("mousedown", function(event){magActive = true; addPoint(event);});
-  document.getElementById('drawingCanvas').addEventListener("mouserelease", function(){magActive = false;});
+  document.getElementById('drawingCanvas').addEventListener("mouseup", function(){magActive = false;});
   document.getElementById('onoff').addEventListener("click", switchMagnifier);
   document.getElementById('size').addEventListener("change", updateMagnifierDiameter);
   document.getElementById('zoom').addEventListener("change", updateMagnifierZoomFactor);

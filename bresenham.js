@@ -1,3 +1,6 @@
+// Daelyn Doughty
+// Assignment: 2
+// Due 2/14/24 (original due date was 2/11/24 but I got an extension, see readme for more details)
 // draw a line from the first to the second point
 // parameters:
 // 1) list of two points.Format: x1, y1, x2, y2
